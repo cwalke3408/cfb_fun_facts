@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 public class HttpClientConfig {
 
     @Bean
-    public HttpClient buildHttpClient() {
+    public HttpClient httpClient() {
         RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(10 * 1000).build();
         return HttpClientBuilder.create().setDefaultRequestConfig(requestConfig).build();
     }

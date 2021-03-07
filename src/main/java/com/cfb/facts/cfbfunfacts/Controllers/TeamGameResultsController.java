@@ -19,4 +19,9 @@ public class TeamGameResultsController {
         seasonRankingsService.retrieveRankingsByYear();
         return null;
     }
+
+    @GetMapping(value = "/games", consumes = "application/json", produces = "application/json")
+    public void getTeamGamesPlayed() {
+        seasonRankingsService.retrieveGamesPlayedInSeason();
+    }
 }
