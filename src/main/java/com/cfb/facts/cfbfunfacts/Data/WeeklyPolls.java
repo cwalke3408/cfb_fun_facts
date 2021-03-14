@@ -4,7 +4,7 @@ import lombok.Data;
 import java.util.Map;
 
 @Data
-public class Rankings {
+public class WeeklyPolls {
 
     public Map<Integer, WeekRankings> rankings;
 }

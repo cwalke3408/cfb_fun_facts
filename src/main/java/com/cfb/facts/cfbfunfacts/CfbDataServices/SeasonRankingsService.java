@@ -21,6 +21,7 @@ import java.io.InputStreamReader;
 public class SeasonRankingsService {
 
     private static final String CFB_RANKINGS_URL = "https://api.collegefootballdata.com/rankings";
+    private static final String TEAM_SEASON_SCH = "https://api.collegefootballdata.com/games";
 
     @Autowired
     protected HttpClient httpClient;
@@ -30,11 +31,11 @@ public class SeasonRankingsService {
 
     /**
      *
-     * Return CFB data Rankings
+     * Return CFB data WeeklyPolls
      */
-    public Rankings retrieveRankingsByYear() {
+    public Rankings retrieveRankingsByYear(String year) {
         Rankings rankings = null;
-        HttpGet httpGet = new HttpGet(CFB_RANKINGS_URL + "?year=2019&seasonType=regular");
+        HttpGet httpGet = new HttpGet(CFB_RANKINGS_URL + "?year="+year+"&seasonType=regular");
         try {
             HttpResponse httpResponse = httpClient.execute(httpGet);
             String jsonString = "{ \"rankings\":"+ httpResponseToString(httpResponse)+"}";
@@ -48,12 +49,14 @@ public class SeasonRankingsService {
 
     /**
      * Retrieve a specific teams W/L data by year
+     * https://api.collegefootballdata.com/games?year=2019&seasonType=both&team=Clemson
      *
      * @return Games
      */
-    public Games retrieveGamesPlayedInSeason() {
+    public Games retrieveGamesPlayedInSeason(String team, String year) {
         Games games = null;
-        HttpGet httpGet = new HttpGet("https://api.collegefootballdata.com/games?year=2019&seasonType=both&team=Clemson");
+        String retrieveTeamSeasonRecordUrl = TEAM_SEASON_SCH + "?year=" + year +"&seasonType=both&team=" + team;
+        HttpGet httpGet = new HttpGet(retrieveTeamSeasonRecordUrl);
         try {
             HttpResponse httpResponse = httpClient.execute(httpGet);
             String jsonString = "{ \"games\":" + httpResponseToString(httpResponse) + "}";
